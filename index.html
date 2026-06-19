@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Flamingo — Design System AI Strategy</title>
+    <meta name="description" content="Rethinking the Flamingo Design System design-to-development workflow with AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg:           #0D0D0D;
+            --surface:      #111111;
+            --card:         #141414;
+            --card-hover:   #191919;
+            --border:       #232323;
+            --pink:         #FF1A6C;
+            --pink-dim:     rgba(255, 26, 108, 0.10);
+            --pink-glow:    rgba(255, 26, 108, 0.30);
+            --white:        #FFFFFF;
+            --gray-100:     #EBEBEB;
+            --gray-300:     #B7B7B7;
+            --gray-500:     #7A7A7A;
+            --gray-700:     #2E2E2E;
+            --mono:         'JetBrains Mono', monospace;
+            --sans:         'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ─── Background ──────────────────────────── */
+        #bg-vanta {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+
+        /* ─── Side Navigation ─────────────────────── */
+        #nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: flex-end;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 0.3rem 0.4rem;
+            transition: background 0.15s ease;
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .nav-item:focus {
+            outline: none;
+            background: rgba(255, 26, 108, 0.10);
+        }
+
+        .nav-item:focus-visible {
+            outline: 2px solid var(--pink);
+            outline-offset: 2px;
+        }
+
+        .nav-label {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateX(6px);
+            transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .nav-item:hover .nav-label,
+        .nav-item.active .nav-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-item.active .nav-label { color: var(--pink); }
+
+        .nav-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gray-700);
+            transition: background 0.25s ease, box-shadow 0.25s ease, width 0.25s ease, height 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .nav-item:hover .nav-dot { background: var(--gray-300); }
+
+        .nav-item.active .nav-dot {
+            background: var(--pink);
+            box-shadow: 0 0 10px var(--pink-glow);
+            width: 7px;
+            height: 7px;
+        }
+
+        /* ─── Main Layout ─────────────────────────── */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 7rem 0;
+        }
+
+        #hero {
+            padding: 0;
+        }
+
+        /* ─── Typography ──────────────────────────── */
+        .overline {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--pink);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.03;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+            line-height: 1.1;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .pink-text { color: var(--pink); }
+
+        /* ─── Bento Grid ──────────────────────────── */
+        .bento {
+            display: grid;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 2.5rem;
+        }
+
+        .bento-2 { grid-template-columns: 1fr 1fr; }
+        .bento-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .bento-4 { grid-template-columns: repeat(4, 1fr); }
+
+        .bento-cell {
+            background: var(--card);
+            padding: 2rem;
+            transition: background 0.2s ease;
+        }
+
+        .bento-cell:hover { background: var(--card-hover); }
+        .bento-cell.span-2 { grid-column: span 2; }
+        .bento-cell.span-3 { grid-column: span 3; }
+        .bento-cell.span-4 { grid-column: span 4; }
+
+        /* ─── Hero ────────────────────────────────── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            gap: 0;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 1px;
+            background: var(--pink);
+            flex-shrink: 0;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.75vw, 1.2rem);
+            color: var(--gray-300);
+            max-width: 580px;
+            margin-bottom: 3.5rem;
+            line-height: 1.75;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meta-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--gray-500);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .meta-value {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-100);
+        }
+
+        /* ─── Workflow Diagram ────────────────────── */
+        .col-label {
+            font-family: var(--mono);
+            font-size: 0.625rem;
+            color: var(--gray-500);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .col-sublabel {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .workflow { display: flex; flex-direction: column; }
+
+        .wf-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .wf-pipe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 8px;
+        }
+
+        .wf-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray-700);
+            border: 1px solid var(--gray-500);
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+        }
+
+        .wf-dot.pink {
+            background: var(--pink);
+            border-color: var(--pink);
+            box-shadow: 0 0 6px var(--pink-glow);
+        }
+
+        .wf-line {
+            width: 1px;
+            min-height: 1.75rem;
+            flex: 1;
+            background: var(--border);
+        }
+
+        .wf-line.pink { background: rgba(255, 26, 108, 0.25); }
+
+        .wf-body {
+            padding-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .wf-body:last-child { padding-bottom: 0; }
+
+        .wf-tag {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            color: var(--pink);
+            background: var(--pink-dim);
+            border: 1px solid rgba(255, 26, 108, 0.18);
+            padding: 0.15rem 0.45rem;
+            border-radius: 2px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 0.3rem;
+        }
+
+        .wf-text {
+            font-size: 0.875rem;
+            color: var(--gray-300);
+            line-height: 1.5;
+        }
+
+        .wf-text.bright { color: var(--gray-100); }
+
+        .wf-sub {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-top: 0.2rem;
+        }
+
+        /* ─── Pain Points ─────────────────────────── */
+        .pain-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pain-item:first-child { border-top: 1px solid var(--border); }
+
+        .pain-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 0.35rem;
+        }
+
+        .pain-desc {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ─── Quote Block ─────────────────────────── */
+        .quote-block {
+            border-left: 2px solid var(--pink);
+            padding: 1.5rem 2rem;
+            background: var(--pink-dim);
+            margin-bottom: 1.75rem;
+        }
+
+        .quote-text {
+            font-size: clamp(1rem, 1.75vw, 1.2rem);
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .quote-text em {
+            color: var(--pink);
+            font-style: normal;
+        }
+
+        /* ─── Note ────────────────────────────────── */
+        .note {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            font-style: italic;
+            border-left: 2px solid var(--gray-700);
+            padding-left: 1rem;
+            line-height: 1.65;
+        }
+
+        /* ─── Strategy Note ───────────────────────── */
+        .strategy-note {
+            padding: 1.25rem 1.5rem;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
+            margin-bottom: 0;
+        }
+
+        .strategy-note p {
+            font-size: 0.85rem;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        .strategy-note strong { color: var(--gray-100); }
+
+        /* ─── Proposal Cards ──────────────────────── */
+        .proposal-num {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--pink);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .proposal-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.6rem;
+            line-height: 1.25;
+        }
+
+        .proposal-goal {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+            line-height: 1.65;
+        }
+
+        .proposal-goal strong { color: var(--gray-300); }
+
+        .steps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .steps-list li {
+            font-size: 0.8rem;
+            color: var(--gray-300);
+            padding-left: 2.5rem;
+            position: relative;
+            line-height: 1.55;
+        }
+
+        .steps-list li::before {
+            content: attr(data-step);
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            color: var(--gray-500);
+            position: absolute;
+            left: 0;
+            top: 0.15rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── Future Items ────────────────────────── */
+        .future-icon {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: block;
+            line-height: 1;
+        }
+
+        .future-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-100);
+            margin-bottom: 0.5rem;
+        }
+
+        .future-desc {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.65;
+        }
+
+        /* ─── Scroll Fade-in ──────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Skip Link ────────────────────────────── */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--pink);
+            color: var(--bg);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            z-index: 999;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ─── Footer ───────────────────────────────── */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--gray-700);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ─── Reduced Motion ───────────────────────── */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ─── Responsive ───────────────────────────── */
+        @media (max-width: 900px) {
+            .bento-2,
+            .bento-3,
+            .bento-4 { grid-template-columns: 1fr; }
+
+            .bento-cell.span-2,
+            .bento-cell.span-3,
+            .bento-cell.span-4 { grid-column: span 1; }
+
+            #nav { right: 1rem; }
+
+            .hero-meta { gap: 2rem; flex-wrap: wrap; }
+        }
+
+        @media (max-width: 640px) {
+            main { padding: 0 1.25rem; }
+            section { padding: 5rem 0; }
+            #nav { display: none; }
+            .hero-meta { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ─── Side Navigation ───────────────────────────────────────── -->
+<nav id="nav" aria-label="Page sections">
+    <button class="nav-item" data-target="hero" aria-label="Go to Overview section">
+        <span class="nav-label" aria-hidden="true">Overview</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="problem" aria-label="Go to The Problem section">
+        <span class="nav-label" aria-hidden="true">The Problem</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="vision" aria-label="Go to The Vision section">
+        <span class="nav-label" aria-hidden="true">The Vision</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="roadmap" aria-label="Go to Q3 Roadmap section">
+        <span class="nav-label" aria-hidden="true">Q3 Roadmap</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="future" aria-label="Go to Future Horizons section">
+        <span class="nav-label" aria-hidden="true">Future Horizons</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO (Full Width)
+════════════════════════════════════════════════════════════ -->
+<section id="hero">
+    <div id="bg-vanta" aria-hidden="true"></div>
+    <div style="position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 2.5rem; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+        <div class="hero-eyebrow">
+            <span class="overline">Flamingo Design System</span>
+        </div>
+        <h1 tabindex="-1">AI for<br><span class="pink-text">Flamingo</span></h1>
+        <p class="hero-subtitle">Design powered by AI — getting components from Figma to code, faster.</p>
+        <div class="hero-meta">
+            <div>
+                <span class="meta-label">Team</span>
+                <span class="meta-value">Flamingo Design System</span>
+            </div>
+            <div>
+                <span class="meta-label">Timeline</span>
+                <span class="meta-value">Q3 – Q4 2026</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main id="main">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE PROBLEM
+    ════════════════════════════════════════════════════════════ -->
+    <section id="problem">
+        <div class="section-label">01 — The Problem</div>
+        <h2 tabindex="-1">Our traditional handoffs<br>are lengthy</h2>
+        <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75;">Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.</p>
+
+        <div class="bento bento-2 fade-up">
+            <!-- Current Workflow -->
+            <div class="bento-cell">
+                <span class="col-label">Current workflow</span>
+                <span class="col-sublabel">How we work today</span>
+                <div class="workflow">
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot"></div>
+                            <div class="wf-line"></div>
+                        </div>
+                        <div class="wf-body">
+                            <p class="wf-text">Designer creates Figma specs</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot"></div>
+                            <div class="wf-line"></div>
+                        </div>
+                        <div class="wf-body">
+                            <p class="wf-text">Engineers (Web, iOS, Android) build code from scratch</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot"></div>
+                            <div class="wf-line"></div>
+                        </div>
+                        <div class="wf-body">
+                            <p class="wf-text">Designer performs manual QA</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot"></div>
+                            <div class="wf-line"></div>
+                        </div>
+                        <div class="wf-body">
+                            <p class="wf-text">Engineers fix bugs &amp; repeat review</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot"></div>
+                        </div>
+                        <div class="wf-body" style="padding-bottom:0;">
+                            <p class="wf-text">Release</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pain Points -->
+            <div class="bento-cell">
+                <span class="col-label">Key pain points</span>
+                <span class="col-sublabel">Where the process breaks down</span>
+                <div>
+                    <div class="pain-item">
+                        <p class="pain-title">Design backlog vs. Engineering capacity</p>
+                        <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
+                    </div>
+                    <div class="pain-item">
+                        <p class="pain-title">The QA Loop</p>
+                        <p class="pain-desc">Finding bugs during QA forces back-and-forth review rounds, consuming time on both sides.</p>
+                    </div>
+                    <div class="pain-item">
+                        <p class="pain-title">Platform Disconnect</p>
+                        <p class="pain-desc">Web, iOS, and Android updates rarely launch together due to varying team capacities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE VISION
+    ════════════════════════════════════════════════════════════ -->
+    <section id="vision">
+        <div class="section-label">02 — The Vision</div>
+        <h2 tabindex="-1">Moving work upstream</h2>
+
+        <div class="bento bento-2 fade-up">
+            <!-- Quote + Explanation -->
+            <div class="bento-cell span-2">
+                <div class="quote-block">
+                    <p class="quote-text">
+                        The Core Shift: From <em>"Engineer Builds"</em> to <em>"Designer Drafts with AI, Engineer Reviews"</em>.
+                    </p>
+                </div>
+                <p style="font-size:0.875rem; color:var(--gray-300); line-height:1.75; max-width:640px;">
+                    By leveraging AI, Flamingo designers can generate the initial code drafts directly from Figma, leaving engineers to focus on review, refinement, and architecture — the parts that truly need their expertise.
+                </p>
+            </div>
+
+            <!-- Future Workflow -->
+            <div class="bento-cell">
+                <span class="col-label">Future workflow</span>
+                <span class="col-sublabel">How we will work tomorrow</span>
+                <div class="workflow">
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Uses Figma + AI Prompts</p>
+                            <p class="wf-sub">Claude Code · HeroGen</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">AI</span>
+                            <p class="wf-text bright">Generates Draft Code</p>
+                            <p class="wf-sub">Storybook · SwiftUI · Compose</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                        </div>
+                        <div class="wf-body" style="padding-bottom:0;">
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Reviews and approves</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scope Note -->
+            <div class="bento-cell" style="display:flex; align-items:flex-end;">
+                <p class="note">
+                    This shift is ideal for uncomplicated tasks like component or token updates. Intricate projects (e.g. building Dark Mode from scratch) will remain engineer-led.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Q3 ROADMAP
+    ════════════════════════════════════════════════════════════ -->
+    <section id="roadmap">
+        <div class="section-label">03 — Q3 Roadmap</div>
+        <h2 tabindex="-1">Step-by-step implementation</h2>
+
+        <div class="strategy-note fade-up" style="margin-top:1.5rem;">
+            <p>
+                <strong>Strategy:</strong> To ensure success, we will tackle these proposals
+                <strong>one platform at a time, starting with Web</strong>.
+                Building a complete end-to-end flow first lets us learn and iterate before expanding to iOS and Android.
+            </p>
+        </div>
+
+        <div class="bento bento-2 fade-up">
+            <!-- Proposal 1 -->
+            <div class="bento-cell">
+                <span class="proposal-num">Proposal 01</span>
+                <p class="proposal-title">Figma-to-Code Pipeline</p>
+                <p class="proposal-goal">
+                    <strong>Goal:</strong> Allow Flamingo designers to create and update components using HeroGen and Claude Code, eliminating the need to create three separate Jira tickets.
+                </p>
+                <ul class="steps-list">
+                    <li data-step="Step 01">Map out the exact technical workflow used by engineering today.</li>
+                    <li data-step="Step 02">Connect our code repositories to AI tools (Claude Code &amp; HeroGen).</li>
+                    <li data-step="Step 03">Test the pipeline by building or updating test components.</li>
+                </ul>
+            </div>
+
+            <!-- Proposal 2 -->
+            <div class="bento-cell">
+                <span class="proposal-num">Proposal 02</span>
+                <p class="proposal-title">Automated Storybook &amp; Gallery Updates</p>
+                <p class="proposal-goal">
+                    <strong>Goal:</strong> Ensure our component galleries stay in sync automatically as designers become more involved in the development stage.
+                </p>
+                <ul class="steps-list">
+                    <li data-step="Step 01">Figure out how to securely connect Storybook to Claude Code / HeroGen.</li>
+                    <li data-step="Step 02">Run a test update on a single component to ensure the gallery updates on release.</li>
+                </ul>
+            </div>
+
+            <!-- Proposal 3 -->
+            <div class="bento-cell">
+                <span class="proposal-num">Proposal 03</span>
+                <p class="proposal-title">Claude Code &amp; HeroGen Evaluation</p>
+                <p class="proposal-goal">
+                    <strong>Goal:</strong> Create a definitive guide explaining the capabilities, setup, and best use cases for each tool based on our Q3 tests.
+                </p>
+                <ul class="steps-list">
+                    <li data-step="Step 01">Execute Proposals 1 and 2 using both tools.</li>
+                    <li data-step="Step 02">Document the pros &amp; cons and build a "When to Use What" matrix.</li>
+                </ul>
+            </div>
+
+            <!-- Proposal 4 -->
+            <div class="bento-cell">
+                <span class="proposal-num">Proposal 04</span>
+                <p class="proposal-title">Migrating Documentation for AI Readiness</p>
+                <p class="proposal-goal">
+                    <strong>The Issue:</strong> Our current Zeroheight plan lacks MCP (Model Context Protocol) support, making agentic AI integration impossible.
+                </p>
+                <ul class="steps-list">
+                    <li data-step="Step 01">Extract all current content and component web previews from Zeroheight.</li>
+                    <li data-step="Step 02">Build the new AI-supported documentation platform.</li>
+                    <li data-step="Q4 →">Run AI audits to flag inconsistencies and draft fixes.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FUTURE HORIZONS
+    ════════════════════════════════════════════════════════════ -->
+    <section id="future">
+        <div class="section-label">04 — Future Horizons</div>
+        <h2 tabindex="-1">Q4 &amp; Beyond</h2>
+        <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75;">
+            Once our foundational AI pipeline is solid, we can automate even more of our ecosystem.
+        </p>
+
+        <div class="bento bento-2 fade-up">
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Robot">🤖</span>
+                <p class="future-title">AI Documentation Agents</p>
+                <p class="future-desc">Automatically update the documentation site the moment a component's code changes — no manual copy-paste required.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Cycle arrows">🔄</span>
+                <p class="future-title">Automated Token Sync</p>
+                <p class="future-desc">A designer publishes in Figma → a webhook triggers → CI runs → Pull Requests open across Web, iOS, and Android simultaneously for engineering approval.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Palette">🎨</span>
+                <p class="future-title">Illustration Agents</p>
+                <p class="future-desc">Use AI to generate, format, and store asset variants automatically — keeping our illustration library consistent and up to date.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Eye">👁</span>
+                <p class="future-title">Design Critique Agents</p>
+                <p class="future-desc">AI bots that review Figma files against our documented design tokens and guidelines — catching errors before a single line of code is written.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>Flamingo Design System &mdash; AI Strategy 2026</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+<script>
+VANTA.FOG({
+    el: "#bg-vanta",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x780018,
+    midtoneColor: 0x695736,
+    lowlightColor: 0xa42457,
+    baseColor: 0x46001c,
+    blurFactor: 0.70,
+    speed: 0.50,
+    zoom: 0.60
+});
+</script>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// Section-aware navigation
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                navItems.forEach(n => {
+                    n.classList.toggle('active', n.dataset.target === e.target.id);
+                });
+            }
+        });
+    }, { threshold: 0.45 });
+
+    sections.forEach(s => io.observe(s));
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(item.dataset.target);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                const heading = target.querySelector('h1, h2');
+                if (heading) {
+                    setTimeout(() => heading.focus(), 500);
+                }
+            }
+        });
+
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.click();
+            }
+        });
+    });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// Scroll fade-in
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const els = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
