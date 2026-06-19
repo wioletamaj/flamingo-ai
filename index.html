@@ -20,7 +20,7 @@
             --surface:      #111111;
             --card:         #141414;
             --card-hover:   #191919;
-            --border:       #232323;
+            --border:       #404040;
             --pink:         #FF1A6C;
             --pink-dim:     rgba(255, 26, 108, 0.10);
             --pink-glow:    rgba(255, 26, 108, 0.30);
@@ -37,10 +37,10 @@
 
         body {
             background: var(--bg);
-            color: var(--white);
+            color: var(--gray-100);
             font-family: var(--sans);
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.7;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -173,11 +173,11 @@
         }
 
         h2 {
-            font-size: clamp(1.6rem, 3.5vw, 2.75rem);
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
             font-weight: 700;
             letter-spacing: -0.025em;
             margin-bottom: 0.75rem;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
         .section-label {
@@ -254,11 +254,11 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1rem, 1.75vw, 1.2rem);
-            color: var(--gray-300);
+            font-size: clamp(1.05rem, 1.85vw, 1.3rem);
+            color: var(--gray-100);
             max-width: 580px;
             margin-bottom: 3.5rem;
-            line-height: 1.75;
+            line-height: 1.8;
         }
 
         .hero-meta {
@@ -279,7 +279,7 @@
         }
 
         .meta-value {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             font-weight: 500;
             color: var(--gray-100);
         }
@@ -297,7 +297,7 @@
 
         .col-sublabel {
             font-size: 0.8rem;
-            color: var(--gray-300);
+            color: var(--gray-100);
             margin-bottom: 2rem;
             display: block;
         }
@@ -365,9 +365,9 @@
         }
 
         .wf-text {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             color: var(--gray-300);
-            line-height: 1.5;
+            line-height: 1.65;
         }
 
         .wf-text.bright { color: var(--gray-100); }
@@ -388,15 +388,15 @@
         .pain-item:first-child { border-top: 1px solid var(--border); }
 
         .pain-title {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--gray-100);
             margin-bottom: 0.35rem;
         }
 
         .pain-desc {
-            font-size: 0.8rem;
-            color: var(--gray-500);
+            font-size: 0.9rem;
+            color: var(--gray-300);
             line-height: 1.65;
         }
 
@@ -409,10 +409,10 @@
         }
 
         .quote-text {
-            font-size: clamp(1rem, 1.75vw, 1.2rem);
+            font-size: clamp(1.05rem, 1.85vw, 1.3rem);
             font-weight: 500;
             color: var(--white);
-            line-height: 1.6;
+            line-height: 1.75;
         }
 
         .quote-text em {
@@ -422,12 +422,12 @@
 
         /* ─── Note ────────────────────────────────── */
         .note {
-            font-size: 0.8rem;
-            color: var(--gray-500);
+            font-size: 0.9rem;
+            color: var(--gray-300);
             font-style: italic;
-            border-left: 2px solid var(--gray-700);
+            border-left: 2px solid var(--gray-300);
             padding-left: 1rem;
-            line-height: 1.65;
+            line-height: 1.7;
         }
 
         /* ─── Strategy Note ───────────────────────── */
@@ -439,9 +439,9 @@
         }
 
         .strategy-note p {
-            font-size: 0.85rem;
-            color: var(--gray-300);
-            line-height: 1.7;
+            font-size: 0.95rem;
+            color: var(--gray-100);
+            line-height: 1.75;
         }
 
         .strategy-note strong { color: var(--gray-100); }
@@ -453,21 +453,21 @@
             color: var(--pink);
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0;
             display: block;
         }
 
         .proposal-title {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--white);
-            margin-bottom: 0.6rem;
-            line-height: 1.25;
+            margin-bottom: 0;
+            line-height: 1.3;
         }
 
         .proposal-goal {
-            font-size: 0.8rem;
-            color: var(--gray-500);
+            font-size: 0.9rem;
+            color: var(--gray-300);
             margin-bottom: 1.5rem;
             line-height: 1.65;
         }
@@ -482,22 +482,97 @@
         }
 
         .steps-list li {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--gray-300);
-            padding-left: 2.5rem;
+            padding-left: 4rem;
             position: relative;
-            line-height: 1.55;
+            line-height: 1.65;
         }
 
         .steps-list li::before {
             content: attr(data-step);
             font-family: var(--mono);
             font-size: 0.55rem;
-            color: var(--gray-500);
+            color: var(--gray-300);
             position: absolute;
             left: 0;
             top: 0.15rem;
             letter-spacing: 0.05em;
+        }
+
+        /* ─── Accordion Layout ────────────────────── */
+        .proposals-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 2.5rem;
+        }
+
+        .accordion-item {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: var(--card);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .accordion-header:hover {
+            background: var(--card-hover);
+        }
+
+        .accordion-header > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: var(--pink);
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--card);
+        }
+
+        .accordion-item.active .accordion-body {
+            max-height: 2000px;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .accordion-body .proposal-goal {
+            margin-top: 0;
         }
 
         /* ─── Future Items ────────────────────────── */
@@ -509,15 +584,15 @@
         }
 
         .future-title {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--gray-100);
             margin-bottom: 0.5rem;
         }
 
         .future-desc {
-            font-size: 0.8rem;
-            color: var(--gray-500);
+            font-size: 0.9rem;
+            color: var(--gray-300);
             line-height: 1.65;
         }
 
@@ -821,59 +896,87 @@
             </p>
         </div>
 
-        <div class="bento bento-2 fade-up">
+        <div class="proposals-accordion fade-up">
             <!-- Proposal 1 -->
-            <div class="bento-cell">
-                <span class="proposal-num">Proposal 01</span>
-                <p class="proposal-title">Figma-to-Code Pipeline</p>
-                <p class="proposal-goal">
-                    <strong>Goal:</strong> Allow Flamingo designers to create and update components using HeroGen and Claude Code, eliminating the need to create three separate Jira tickets.
-                </p>
-                <ul class="steps-list">
-                    <li data-step="Step 01">Map out the exact technical workflow used by engineering today.</li>
-                    <li data-step="Step 02">Connect our code repositories to AI tools (Claude Code &amp; HeroGen).</li>
-                    <li data-step="Step 03">Test the pipeline by building or updating test components.</li>
-                </ul>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Proposal 01</span>
+                        <p class="proposal-title">Figma-to-Code Pipeline</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Allow Flamingo designers to create and update components using HeroGen and Claude Code, eliminating the need to create three separate Jira tickets.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Map out the exact technical workflow used by engineering today.</li>
+                        <li data-step="Step 02">Connect our code repositories to AI tools (Claude Code &amp; HeroGen).</li>
+                        <li data-step="Step 03">Test the pipeline by building or updating test components.</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Proposal 2 -->
-            <div class="bento-cell">
-                <span class="proposal-num">Proposal 02</span>
-                <p class="proposal-title">Automated Storybook &amp; Gallery Updates</p>
-                <p class="proposal-goal">
-                    <strong>Goal:</strong> Ensure our component galleries stay in sync automatically as designers become more involved in the development stage.
-                </p>
-                <ul class="steps-list">
-                    <li data-step="Step 01">Figure out how to securely connect Storybook to Claude Code / HeroGen.</li>
-                    <li data-step="Step 02">Run a test update on a single component to ensure the gallery updates on release.</li>
-                </ul>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Proposal 02</span>
+                        <p class="proposal-title">Automated Storybook &amp; Gallery Updates</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Ensure our component galleries stay in sync automatically as designers become more involved in the development stage.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Figure out how to securely connect Storybook to Claude Code / HeroGen.</li>
+                        <li data-step="Step 02">Run a test update on a single component to ensure the gallery updates on release.</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Proposal 3 -->
-            <div class="bento-cell">
-                <span class="proposal-num">Proposal 03</span>
-                <p class="proposal-title">Claude Code &amp; HeroGen Evaluation</p>
-                <p class="proposal-goal">
-                    <strong>Goal:</strong> Create a definitive guide explaining the capabilities, setup, and best use cases for each tool based on our Q3 tests.
-                </p>
-                <ul class="steps-list">
-                    <li data-step="Step 01">Execute Proposals 1 and 2 using both tools.</li>
-                    <li data-step="Step 02">Document the pros &amp; cons and build a "When to Use What" matrix.</li>
-                </ul>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Proposal 03</span>
+                        <p class="proposal-title">Claude Code &amp; HeroGen Evaluation</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Create a definitive guide explaining the capabilities, setup, and best use cases for each tool based on our Q3 tests.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Execute Proposals 1 and 2 using both tools.</li>
+                        <li data-step="Step 02">Document the pros &amp; cons and build a "When to Use What" matrix.</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Proposal 4 -->
-            <div class="bento-cell">
-                <span class="proposal-num">Proposal 04</span>
-                <p class="proposal-title">Migrating Documentation for AI Readiness</p>
-                <p class="proposal-goal">
-                    <strong>The Issue:</strong> Our current Zeroheight plan lacks MCP (Model Context Protocol) support, making agentic AI integration impossible.
-                </p>
-                <ul class="steps-list">
-                    <li data-step="Step 01">Extract all current content and component web previews from Zeroheight.</li>
-                    <li data-step="Step 02">Build the new AI-supported documentation platform.</li>
-                    <li data-step="Q4 →">Run AI audits to flag inconsistencies and draft fixes.</li>
-                </ul>
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Proposal 04</span>
+                        <p class="proposal-title">Migrating Documentation for AI Readiness</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>The Issue:</strong> Our current Zeroheight plan lacks MCP (Model Context Protocol) support, making agentic AI integration impossible.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Extract all current content and component web previews from Zeroheight.</li>
+                        <li data-step="Step 02">Build the new AI-supported documentation platform.</li>
+                        <li data-step="Q4 →">Run AI audits to flag inconsistencies and draft fixes.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -940,6 +1043,19 @@ VANTA.FOG({
 </script>
 
 <script>
+// ─────────────────────────────────────────────────────────────────
+// Accordion functionality
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const headers = document.querySelectorAll('.accordion-header');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.closest('.accordion-item');
+            item.classList.toggle('active');
+        });
+    });
+})();
+
 // ─────────────────────────────────────────────────────────────────
 // Section-aware navigation
 // ─────────────────────────────────────────────────────────────────
