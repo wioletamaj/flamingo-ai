@@ -9,7 +9,7 @@
     --surface:      #111111;
     --card:         #141414;
     --card-hover:   #191919;
-    --border:       #404040;
+    --border:       #666666;
     --pink:         #FF1A6C;
     --pink-dim:     rgba(255, 26, 108, 0.15);
     --pink-glow:    rgba(255, 26, 108, 0.30);
@@ -464,7 +464,7 @@ h2 {
     font-size: 0.9rem;
     color: var(--gray-300);
     font-style: italic;
-    border-left: 2px solid var(--gray-300);
+    border-left: 2px solid #666666;
     padding-left: 1rem;
     line-height: 1.7;
 }
