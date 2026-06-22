@@ -662,8 +662,11 @@ footer {
 footer p {
     font-family: var(--mono);
     font-size: 0.6rem;
-    color: var(--gray-300);
+    color: var(--white);
     letter-spacing: 0.12em;
+}
+
+footer p:first-of-type {
     text-transform: uppercase;
 }
 
