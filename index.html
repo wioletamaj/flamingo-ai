@@ -8,677 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --bg:           #0D0D0D;
-            --surface:      #111111;
-            --card:         #141414;
-            --card-hover:   #191919;
-            --border:       #404040;
-            --pink:         #FF1A6C;
-            --pink-dim:     rgba(255, 26, 108, 0.10);
-            --pink-glow:    rgba(255, 26, 108, 0.30);
-            --white:        #FFFFFF;
-            --gray-100:     #EBEBEB;
-            --gray-300:     #B7B7B7;
-            --gray-500:     #7A7A7A;
-            --gray-700:     #2E2E2E;
-            --mono:         'JetBrains Mono', monospace;
-            --sans:         'Inter', sans-serif;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--gray-100);
-            font-family: var(--sans);
-            font-size: 17px;
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ─── Background ──────────────────────────── */
-        #bg-vanta {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-
-        /* ─── Side Navigation ─────────────────────── */
-        #nav {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            align-items: flex-end;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            cursor: pointer;
-            border-radius: 4px;
-            padding: 0.3rem 0.4rem;
-            transition: background 0.15s ease;
-            background: none;
-            border: none;
-            font-family: inherit;
-            font-size: inherit;
-        }
-
-        .nav-item:focus {
-            outline: none;
-            background: rgba(255, 26, 108, 0.10);
-        }
-
-        .nav-item:focus-visible {
-            outline: 2px solid var(--pink);
-            outline-offset: 2px;
-        }
-
-        .nav-label {
-            font-family: var(--mono);
-            font-size: 0.625rem;
-            color: var(--gray-500);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: translateX(6px);
-            transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
-            white-space: nowrap;
-            user-select: none;
-        }
-
-        .nav-item:hover .nav-label,
-        .nav-item.active .nav-label {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .nav-item.active .nav-label { color: var(--pink); }
-
-        .nav-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--white);
-            transition: background 0.25s ease, box-shadow 0.25s ease, width 0.25s ease, height 0.25s ease;
-            flex-shrink: 0;
-        }
-
-        .nav-item:hover .nav-dot { background: var(--gray-300); }
-
-        .nav-item.active .nav-dot {
-            background: var(--pink);
-            box-shadow: 0 0 10px var(--pink-glow);
-            width: 7px;
-            height: 7px;
-        }
-
-        /* ─── Main Layout ─────────────────────────── */
-        main {
-            position: relative;
-            z-index: 1;
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 2.5rem;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 7rem 0;
-        }
-
-        #hero {
-            padding: 0;
-        }
-
-        /* ─── Typography ──────────────────────────── */
-        .overline {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--pink);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            font-size: clamp(2.75rem, 6.5vw, 5.5rem);
-            font-weight: 800;
-            line-height: 1.03;
-            letter-spacing: -0.035em;
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            margin-bottom: 0.75rem;
-            line-height: 1.2;
-        }
-
-        .section-label {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--pink);
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .pink-text { color: var(--pink); }
-
-        /* ─── Bento Grid ──────────────────────────── */
-        .bento {
-            display: grid;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-top: 2.5rem;
-        }
-
-        .bento-2 { grid-template-columns: 1fr 1fr; }
-        .bento-3 { grid-template-columns: 1fr 1fr 1fr; }
-        .bento-4 { grid-template-columns: repeat(4, 1fr); }
-
-        .bento-cell {
-            background: var(--card);
-            padding: 2rem;
-            transition: background 0.2s ease;
-        }
-
-        .bento-cell:hover { background: var(--card-hover); }
-        .bento-cell.span-2 { grid-column: span 2; }
-        .bento-cell.span-3 { grid-column: span 3; }
-        .bento-cell.span-4 { grid-column: span 4; }
-
-        /* ─── Hero ────────────────────────────────── */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0;
-            position: relative;
-            width: 100%;
-            gap: 0;
-        }
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-eyebrow::before {
-            content: '';
-            display: block;
-            width: 2rem;
-            height: 1px;
-            background: var(--pink);
-            flex-shrink: 0;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.05rem, 1.85vw, 1.3rem);
-            color: var(--gray-100);
-            max-width: 580px;
-            margin-bottom: 3.5rem;
-            line-height: 1.8;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .meta-label {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--pink);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .meta-value {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--gray-100);
-        }
-
-        /* ─── Workflow Diagram ────────────────────── */
-        .col-label {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--pink);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .col-sublabel {
-            font-size: 0.8rem;
-            color: var(--gray-100);
-            margin-bottom: 2rem;
-            display: block;
-        }
-
-        .workflow { display: flex; flex-direction: column; }
-
-        .wf-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .wf-pipe {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex-shrink: 0;
-            width: 8px;
-        }
-
-        .wf-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gray-700);
-            border: 1px solid var(--gray-500);
-            flex-shrink: 0;
-            margin-top: 0.3rem;
-        }
-
-        .wf-dot.pink {
-            background: var(--pink);
-            border-color: var(--pink);
-            box-shadow: 0 0 6px var(--pink-glow);
-        }
-
-        .wf-line {
-            width: 1px;
-            min-height: 1.75rem;
-            flex: 1;
-            background: var(--border);
-        }
-
-        .wf-line.pink { background: rgba(255, 26, 108, 0.25); }
-
-        .wf-body {
-            padding-bottom: 1.5rem;
-            flex: 1;
-        }
-
-        .wf-body:last-child { padding-bottom: 0; }
-
-        .wf-tag {
-            font-family: var(--mono);
-            font-size: 0.55rem;
-            color: var(--pink);
-            background: var(--pink-dim);
-            border: 1px solid rgba(255, 26, 108, 0.18);
-            padding: 0.15rem 0.45rem;
-            border-radius: 2px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 0.3rem;
-        }
-
-        .wf-text {
-            font-size: 0.95rem;
-            color: var(--gray-300);
-            line-height: 1.65;
-        }
-
-        .wf-text.bright { color: var(--gray-100); }
-
-        .wf-sub {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--gray-500);
-            margin-top: 0.2rem;
-        }
-
-        /* ─── Pain Points ─────────────────────────── */
-        .pain-item {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .pain-item:first-child { border-top: 1px solid var(--border); }
-
-        .pain-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--gray-100);
-            margin-bottom: 0.35rem;
-        }
-
-        .pain-desc {
-            font-size: 0.9rem;
-            color: var(--gray-300);
-            line-height: 1.65;
-        }
-
-        /* ─── Quote Block ─────────────────────────── */
-        .quote-block {
-            border-left: 2px solid var(--pink);
-            padding: 1.5rem 2rem;
-            background: var(--pink-dim);
-            margin-bottom: 1.75rem;
-        }
-
-        .quote-text {
-            font-size: clamp(1.05rem, 1.85vw, 1.3rem);
-            font-weight: 500;
-            color: var(--white);
-            line-height: 1.75;
-        }
-
-        .quote-text em {
-            color: var(--pink);
-            font-style: normal;
-        }
-
-        /* ─── Note ────────────────────────────────── */
-        .note {
-            font-size: 0.9rem;
-            color: var(--gray-300);
-            font-style: italic;
-            border-left: 2px solid var(--gray-300);
-            padding-left: 1rem;
-            line-height: 1.7;
-        }
-
-        /* ─── Strategy Note ───────────────────────── */
-        .strategy-note {
-            padding: 1.25rem 1.5rem;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.015);
-            margin-bottom: 0;
-        }
-
-        .strategy-note p {
-            font-size: 0.95rem;
-            color: var(--gray-100);
-            line-height: 1.75;
-        }
-
-        .strategy-note strong { color: var(--gray-100); }
-
-        /* ─── Proposal Cards ──────────────────────── */
-        .proposal-num {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--pink);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 0;
-            display: block;
-        }
-
-        .proposal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0;
-            line-height: 1.3;
-        }
-
-        .proposal-goal {
-            font-size: 0.9rem;
-            color: var(--gray-300);
-            margin-bottom: 1.5rem;
-            line-height: 1.65;
-        }
-
-        .proposal-goal strong { color: var(--gray-300); }
-
-        .steps-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.625rem;
-        }
-
-        .steps-list li {
-            font-size: 0.9rem;
-            color: var(--gray-300);
-            padding-left: 4rem;
-            position: relative;
-            line-height: 1.65;
-        }
-
-        .steps-list li::before {
-            content: attr(data-step);
-            font-family: var(--mono);
-            font-size: 0.55rem;
-            color: var(--gray-300);
-            position: absolute;
-            left: 0;
-            top: 0.15rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* ─── Accordion Layout ────────────────────── */
-        .proposals-accordion {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-top: 2.5rem;
-        }
-
-        .accordion-item {
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .accordion-item:last-child {
-            border-bottom: none;
-        }
-
-        .accordion-header {
-            width: 100%;
-            padding: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            background: var(--card);
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            text-align: left;
-            font-family: inherit;
-            font-size: inherit;
-        }
-
-        .accordion-header:hover {
-            background: var(--card-hover);
-        }
-
-        .accordion-header > div {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .accordion-icon {
-            font-size: 1.5rem;
-            color: var(--pink);
-            font-weight: 300;
-            line-height: 1;
-            flex-shrink: 0;
-            transition: transform 0.25s ease;
-        }
-
-        .accordion-item.active .accordion-icon {
-            transform: rotate(45deg);
-        }
-
-        .accordion-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: var(--card);
-        }
-
-        .accordion-item.active .accordion-body {
-            max-height: 2000px;
-            padding: 0 2rem 2rem 2rem;
-        }
-
-        .accordion-body .proposal-goal {
-            margin-top: 0;
-        }
-
-        /* ─── Future Items ────────────────────────── */
-        .future-icon {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            display: block;
-            line-height: 1;
-        }
-
-        .future-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray-100);
-            margin-bottom: 0.5rem;
-        }
-
-        .future-desc {
-            font-size: 0.9rem;
-            color: var(--gray-300);
-            line-height: 1.65;
-        }
-
-        /* ─── Scroll Fade-in ──────────────────────── */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.55s ease, transform 0.55s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ─── Skip Link ────────────────────────────── */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--pink);
-            color: var(--bg);
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            z-index: 999;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* ─── Footer ───────────────────────────────── */
-        footer {
-            position: relative;
-            z-index: 1;
-            border-top: 1px solid var(--border);
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        footer p {
-            font-family: var(--mono);
-            font-size: 0.6rem;
-            color: var(--gray-700);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        /* ─── Reduced Motion ───────────────────────── */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
-        /* ─── Responsive ───────────────────────────── */
-        @media (max-width: 900px) {
-            .bento-2,
-            .bento-3,
-            .bento-4 { grid-template-columns: 1fr; }
-
-            .bento-cell.span-2,
-            .bento-cell.span-3,
-            .bento-cell.span-4 { grid-column: span 1; }
-
-            #nav { right: 1rem; }
-
-            .hero-meta { gap: 2rem; flex-wrap: wrap; }
-        }
-
-        @media (max-width: 640px) {
-            main { padding: 0 1.25rem; }
-            section { padding: 5rem 0; }
-            #nav { display: none; }
-            .hero-meta { gap: 1.5rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ─── Logo ───────────────────────────────────────────────────── -->
+<img id="logo" src="assets/logo.svg" alt="Flamingo Design System" />
 
 <!-- ─── Side Navigation ───────────────────────────────────────── -->
 <nav id="nav" aria-label="Page sections">
@@ -716,10 +53,6 @@
         <h1 tabindex="-1">AI for<br><span class="pink-text">Flamingo</span></h1>
         <p class="hero-subtitle">Design powered by AI — getting components from Figma to code, faster.</p>
         <div class="hero-meta">
-            <div>
-                <span class="meta-label">Team</span>
-                <span class="meta-value">Flamingo Design System</span>
-            </div>
             <div>
                 <span class="meta-label">Timeline</span>
                 <span class="meta-value">Q3 – Q4 2026</span>
@@ -820,23 +153,17 @@
         <div class="section-label">02 — The Vision</div>
         <h2 tabindex="-1">Moving work upstream</h2>
 
-        <div class="bento bento-2 fade-up">
-            <!-- Quote + Explanation -->
-            <div class="bento-cell span-2">
-                <div class="quote-block">
-                    <p class="quote-text">
-                        The Core Shift: From <em>"Engineer Builds"</em> to <em>"Designer Drafts with AI, Engineer Reviews"</em>.
-                    </p>
-                </div>
-                <p style="font-size:0.875rem; color:var(--gray-300); line-height:1.75; max-width:640px;">
-                    By leveraging AI, Flamingo designers can generate the initial code drafts directly from Figma, leaving engineers to focus on review, refinement, and architecture — the parts that truly need their expertise.
-                </p>
-            </div>
+        <div class="quote-block" style="margin-top: 2rem; margin-bottom: 2.5rem;">
+            <p class="quote-text">
+                The Core Shift: From <em>"Engineer Builds"</em> to <em>"Designer Drafts with AI, Engineer Reviews"</em>.
+            </p>
+        </div>
 
+        <div class="bento bento-2 fade-up">
             <!-- Future Workflow -->
             <div class="bento-cell">
                 <span class="col-label">Future workflow</span>
-                <span class="col-sublabel">How we will work tomorrow</span>
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">How we will work tomorrow</p>
                 <div class="workflow">
                     <div class="wf-step">
                         <div class="wf-pipe">
@@ -873,7 +200,10 @@
             </div>
 
             <!-- Scope Note -->
-            <div class="bento-cell" style="display:flex; align-items:flex-end;">
+            <div class="bento-cell">
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75; margin-bottom: 1.5rem;">
+                    By leveraging AI, Flamingo designers can generate the initial code drafts directly from Figma, leaving engineers to focus on review, refinement, and architecture — the parts that truly need their expertise.
+                </p>
                 <p class="note">
                     This shift is ideal for uncomplicated tasks like component or token updates. Intricate projects (e.g. building Dark Mode from scratch) will remain engineer-led.
                 </p>
@@ -1054,6 +384,28 @@ VANTA.FOG({
             item.classList.toggle('active');
         });
     });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// Logo resize on scroll
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const logo = document.getElementById('logo');
+    const heroSection = document.getElementById('hero');
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                logo.classList.remove('scrolled');
+            } else {
+                logo.classList.add('scrolled');
+            }
+        });
+    }, { threshold: 0 });
+
+    if (heroSection) {
+        io.observe(heroSection);
+    }
 })();
 
 // ─────────────────────────────────────────────────────────────────
