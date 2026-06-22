@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Flamingo — Design System AI Strategy</title>
+    <meta name="description" content="Rethinking the Flamingo Design System design-to-development workflow with AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ─── Logo ───────────────────────────────────────────────────── -->
+<img id="logo" src="assets/logo.svg" alt="Flamingo Design System" />
+
+<!-- ─── Side Navigation ───────────────────────────────────────── -->
+<nav id="nav" aria-label="Page sections">
+    <button class="nav-item" data-target="hero" aria-label="Go to Overview section">
+        <span class="nav-label" aria-hidden="true">Overview</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="problem" aria-label="Go to The Problem section">
+        <span class="nav-label" aria-hidden="true">The Problem</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="vision" aria-label="Go to The Vision section">
+        <span class="nav-label" aria-hidden="true">The Vision</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="roadmap" aria-label="Go to Q3 Roadmap section">
+        <span class="nav-label" aria-hidden="true">Q3 Roadmap</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+    <button class="nav-item" data-target="future" aria-label="Go to Future Horizons section">
+        <span class="nav-label" aria-hidden="true">Future Horizons</span>
+        <div class="nav-dot" aria-hidden="true"></div>
+    </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO (Full Width)
+════════════════════════════════════════════════════════════ -->
+<section id="hero">
+    <div id="bg-vanta" aria-hidden="true"></div>
+    <div style="position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 2.5rem; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+        <div class="hero-eyebrow">
+            <span class="overline">Flamingo Design System</span>
+        </div>
+        <h1 tabindex="-1">AI for<br><span class="pink-text">Flamingo</span></h1>
+        <p class="hero-subtitle">Design powered by AI — getting components from Figma to code, faster.</p>
+        <div class="hero-meta">
+            <div>
+                <span class="meta-label">Timeline</span>
+                <span class="meta-value">Q3 – Q4 2026</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main id="main">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE PROBLEM
+    ════════════════════════════════════════════════════════════ -->
+    <section id="problem">
+        <div class="section-label">01 — The Problem</div>
+        <h2 tabindex="-1">Our traditional handoffs<br>are lengthy</h2>
+
+        <div class="bento bento-2 fade-up">
+            <!-- Pain Points -->
+            <div class="bento-cell">
+                <span class="col-label">Key pain points</span>
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.</p>
+                <div class="pain-points-container">
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">Design backlog vs. Engineering capacity</p>
+                            <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
+                        </div>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">The QA Loop</p>
+                            <p class="pain-desc">Finding bugs during QA forces back-and-forth review rounds, consuming time on both sides.</p>
+                        </div>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">Platform Disconnect</p>
+                            <p class="pain-desc">Web, iOS, and Android updates rarely launch together due to varying team capacities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Workflow -->
+            <div class="bento-cell">
+                <span class="col-label">Current workflow</span>
+                <div class="workflow">
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Creates Figma specs</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Build code from scratch</p>
+                            <p class="wf-sub">Web, iOS, Android</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Performs manual QA</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Fix bugs &amp; repeat review</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                        </div>
+                        <div class="wf-body" style="padding-bottom:0;">
+                            <span class="wf-tag">Release</span>
+                            <p class="wf-text bright">Deploy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE VISION
+    ════════════════════════════════════════════════════════════ -->
+    <section id="vision">
+        <div class="section-label">02 — The Vision</div>
+        <h2 tabindex="-1">Moving work upstream</h2>
+
+        <div class="quote-block" style="margin-top: 2rem; margin-bottom: 2.5rem;">
+            <p class="quote-text">
+                The Core Shift: From <em>"Engineer Builds"</em> to <em>"Designer Drafts with AI, Engineer Reviews"</em>.
+            </p>
+        </div>
+
+        <div class="bento bento-2 fade-up">
+            <!-- Scope Note -->
+            <div class="bento-cell">
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75; margin-bottom: 1.5rem;">
+                    By leveraging AI, Flamingo designers can generate the initial code drafts directly from Figma, leaving engineers to focus on review, refinement, and architecture — the parts that truly need their expertise.
+                </p>
+                <p class="note">
+                    This shift is ideal for uncomplicated tasks like component or token updates. Intricate projects (e.g. building Dark Mode from scratch) will likely remain engineer-led.
+                </p>
+            </div>
+
+            <!-- Future Workflow -->
+            <div class="bento-cell">
+                <span class="col-label">Future workflow</span>
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">Our proposed workflow going forward</p>
+                <div class="workflow">
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Uses Figma + AI Prompts</p>
+                            <p class="wf-sub">Claude Code · HeroGen</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body">
+                            <span class="wf-tag">AI</span>
+                            <p class="wf-text bright">Generates Draft Code</p>
+                            <p class="wf-sub">Storybook · SwiftUI · Compose</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                        </div>
+                        <div class="wf-body" style="padding-bottom:0;">
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Reviews and approves</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Q3 ROADMAP
+    ════════════════════════════════════════════════════════════ -->
+    <section id="roadmap">
+        <div class="section-label">03 — Q3 Roadmap</div>
+        <h2 tabindex="-1">Step-by-step implementation</h2>
+
+        <p style="margin-top:1.5rem; margin-bottom:2.5rem; color:var(--gray-300); line-height:1.75;">
+            <strong>Strategy:</strong> To ensure success, we will tackle these tasks
+            <strong>one platform at a time, starting with Web</strong>.
+            Building a complete end-to-end flow first lets us learn and iterate before expanding to iOS and Android.
+        </p>
+
+        <div class="proposals-accordion fade-up">
+            <!-- Task 1 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Task 01</span>
+                        <p class="proposal-title">Figma-to-Code Pipeline</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Allow Flamingo designers to create and update components using HeroGen and Claude Code, eliminating the need to create three separate Jira tickets.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Map out the exact technical workflow used by engineering today.</li>
+                        <li data-step="Step 02">Connect our code repositories to AI tools (Claude Code &amp; HeroGen).</li>
+                        <li data-step="Step 03">Test the pipeline by building or updating test components.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Task 02</span>
+                        <p class="proposal-title">Automated Storybook &amp; Gallery Updates</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Ensure our component galleries stay in sync automatically as designers become more involved in the development stage.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Figure out how to securely connect Storybook to Claude Code / HeroGen.</li>
+                        <li data-step="Step 02">Run a test update on a single component to ensure the gallery updates on release.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Task 03</span>
+                        <p class="proposal-title">Claude Code &amp; HeroGen Evaluation</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>Goal:</strong> Create a definitive guide explaining the capabilities, setup, and best use cases for each tool based on our Q3 tests.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Execute Proposals 1 and 2 using both tools.</li>
+                        <li data-step="Step 02">Document the pros &amp; cons and build a "When to Use What" matrix.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Task 4 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div>
+                        <span class="proposal-num">Task 04</span>
+                        <p class="proposal-title">Migrating Documentation for AI Readiness</p>
+                    </div>
+                    <span class="accordion-icon">+</span>
+                </button>
+                <div class="accordion-body">
+                    <p class="proposal-goal">
+                        <strong>The Issue:</strong> Our current Zeroheight plan lacks MCP (Model Context Protocol) support, making agentic AI integration impossible.
+                    </p>
+                    <ul class="steps-list">
+                        <li data-step="Step 01">Extract all current content and component web previews from Zeroheight.</li>
+                        <li data-step="Step 02">Build the new AI-supported documentation platform.</li>
+                        <li data-step="Q4 →">Run AI audits to flag inconsistencies and draft fixes.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FUTURE HORIZONS
+    ════════════════════════════════════════════════════════════ -->
+    <section id="future">
+        <div class="section-label">04 — Future Horizons</div>
+        <h2 tabindex="-1">Q4 &amp; Beyond</h2>
+        <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75;">
+            Once our foundational AI pipeline is solid, we can automate even more of our ecosystem.
+        </p>
+
+        <div class="bento bento-2 fade-up">
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Robot">🤖</span>
+                <p class="future-title">AI Documentation Agents</p>
+                <p class="future-desc">Automatically update the documentation site the moment a component's code changes — no manual copy-paste required.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Cycle arrows">🔄</span>
+                <p class="future-title">Automated Token Sync</p>
+                <p class="future-desc">A designer publishes in Figma → a webhook triggers → CI runs → Pull Requests open across Web, iOS, and Android simultaneously for engineering approval.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Palette">🎨</span>
+                <p class="future-title">Illustration Agents</p>
+                <p class="future-desc">Use AI to generate, format, and store asset variants automatically — keeping our illustration library consistent and up to date.</p>
+            </div>
+            <div class="bento-cell">
+                <span class="future-icon" role="img" aria-label="Eye">👁</span>
+                <p class="future-title">Design Critique Agents</p>
+                <p class="future-desc">AI bots that review Figma files against our documented design tokens and guidelines — catching errors before a single line of code is written.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div id="bg-vanta-footer" aria-hidden="true"></div>
+    <div style="position: relative; z-index: 1;">
+        <p>Flamingo Design System &mdash; AI Strategy 2026</p>
+        <p style="margin-top: 0.75rem;">Questions? Reach out to us on Slack <a href="https://deliveryhero.enterprise.slack.com/archives/C01R5KZ3WP7" style="color: var(--white); text-decoration: none; border-bottom: 1px solid var(--white);">#flamingo-sync</a></p>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+<script>
+VANTA.FOG({
+    el: "#bg-vanta",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x780018,
+    midtoneColor: 0x695736,
+    lowlightColor: 0xa42457,
+    baseColor: 0x46001c,
+    blurFactor: 0.70,
+    speed: 0.50,
+    zoom: 0.60
+});
+
+VANTA.FOG({
+    el: "#bg-vanta-footer",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x780018,
+    midtoneColor: 0x695736,
+    lowlightColor: 0xa42457,
+    baseColor: 0x46001c,
+    blurFactor: 0.70,
+    speed: 0.50,
+    zoom: 0.60
+});
+</script>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// Accordion functionality
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const headers = document.querySelectorAll('.accordion-header');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.closest('.accordion-item');
+            item.classList.toggle('active');
+        });
+    });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// Logo resize on scroll
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const logo = document.getElementById('logo');
+    const heroSection = document.getElementById('hero');
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                logo.classList.remove('scrolled');
+            } else {
+                logo.classList.add('scrolled');
+            }
+        });
+    }, { threshold: 0 });
+
+    if (heroSection) {
+        io.observe(heroSection);
+    }
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// Section-aware navigation
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                navItems.forEach(n => {
+                    n.classList.toggle('active', n.dataset.target === e.target.id);
+                });
+            }
+        });
+    }, { threshold: 0.45 });
+
+    sections.forEach(s => io.observe(s));
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(item.dataset.target);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                const heading = target.querySelector('h1, h2');
+                if (heading) {
+                    setTimeout(() => heading.focus(), 500);
+                }
+            }
+        });
+
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.click();
+            }
+        });
+    });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// Scroll fade-in
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const els = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
