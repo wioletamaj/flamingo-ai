@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -70,17 +71,44 @@
         <div class="section-label">01 — The Problem</div>
         <h2 tabindex="-1">Our traditional handoffs<br>are lengthy</h2>
 
-        <div class="quote-block" style="margin-top: 2rem; margin-bottom: 2.5rem;">
-            <p class="quote-text">
-                Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.
-            </p>
-        </div>
-
         <div class="bento bento-2 fade-up">
+            <!-- Pain Points -->
+            <div class="bento-cell">
+                <span class="col-label">Key pain points</span>
+                <div class="pain-points-container">
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">Design backlog vs. Engineering capacity</p>
+                            <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
+                        </div>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">The QA Loop</p>
+                            <p class="pain-desc">Finding bugs during QA forces back-and-forth review rounds, consuming time on both sides.</p>
+                        </div>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-indicator">
+                            <div class="pain-dot"></div>
+                        </div>
+                        <div class="pain-content">
+                            <p class="pain-title">Platform Disconnect</p>
+                            <p class="pain-desc">Web, iOS, and Android updates rarely launch together due to varying team capacities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Current Workflow -->
             <div class="bento-cell">
                 <span class="col-label">Current workflow</span>
-                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">How we work today</p>
                 <div class="workflow">
                     <div class="wf-step">
                         <div class="wf-pipe">
@@ -131,26 +159,6 @@
                             <span class="wf-tag">Release</span>
                             <p class="wf-text bright">Deploy</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pain Points -->
-            <div class="bento-cell">
-                <span class="col-label">Key pain points</span>
-                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.</p>
-                <div>
-                    <div class="pain-item">
-                        <p class="pain-title"><span style="margin-right: 0.5rem;">⏳</span>Design backlog vs. Engineering capacity</p>
-                        <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
-                    </div>
-                    <div class="pain-item">
-                        <p class="pain-title"><span style="margin-right: 0.5rem;">🔄</span>The QA Loop</p>
-                        <p class="pain-desc">Finding bugs during QA forces back-and-forth review rounds, consuming time on both sides.</p>
-                    </div>
-                    <div class="pain-item">
-                        <p class="pain-title"><span style="margin-right: 0.5rem;">📱</span>Platform Disconnect</p>
-                        <p class="pain-desc">Web, iOS, and Android updates rarely launch together due to varying team capacities.</p>
                     </div>
                 </div>
             </div>
@@ -239,7 +247,7 @@
 
         <div class="proposals-accordion fade-up">
             <!-- Proposal 1 -->
-            <div class="accordion-item">
+            <div class="accordion-item active">
                 <button class="accordion-header">
                     <div>
                         <span class="proposal-num">Proposal 01</span>
@@ -260,7 +268,7 @@
             </div>
 
             <!-- Proposal 2 -->
-            <div class="accordion-item">
+            <div class="accordion-item active">
                 <button class="accordion-header">
                     <div>
                         <span class="proposal-num">Proposal 02</span>
@@ -280,7 +288,7 @@
             </div>
 
             <!-- Proposal 3 -->
-            <div class="accordion-item">
+            <div class="accordion-item active">
                 <button class="accordion-header">
                     <div>
                         <span class="proposal-num">Proposal 03</span>
@@ -300,7 +308,7 @@
             </div>
 
             <!-- Proposal 4 -->
-            <div class="accordion-item">
+            <div class="accordion-item active">
                 <button class="accordion-header">
                     <div>
                         <span class="proposal-num">Proposal 04</span>
@@ -461,20 +469,20 @@ VANTA.FOG({
 })();
 
 // ─────────────────────────────────────────────────────────────────
-// Scroll fade-in
+// Scroll fade-in (disabled for Figma capture)
 // ─────────────────────────────────────────────────────────────────
-(function () {
-    const els = document.querySelectorAll('.fade-up');
-    const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                io.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.08 });
-    els.forEach(el => io.observe(el));
-})();
+// (function () {
+//     const els = document.querySelectorAll('.fade-up');
+//     const io = new IntersectionObserver(entries => {
+//         entries.forEach(e => {
+//             if (e.isIntersecting) {
+//                 e.target.classList.add('visible');
+//                 io.unobserve(e.target);
+//             }
+//         });
+//     }, { threshold: 0.08 });
+//     els.forEach(el => io.observe(el));
+// })();
 </script>
 </body>
 </html>
