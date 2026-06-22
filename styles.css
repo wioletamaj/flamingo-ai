@@ -460,21 +460,6 @@ h2 {
     line-height: 1.7;
 }
 
-/* ─── Strategy Note ───────────────────── */
-.strategy-note {
-    padding: 1.25rem 1.5rem;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.015);
-    margin-bottom: 0;
-}
-
-.strategy-note p {
-    font-size: 0.95rem;
-    color: var(--gray-100);
-    line-height: 1.75;
-}
-
-.strategy-note strong { color: var(--gray-100); }
 
 /* ─── Proposal Cards ──────────────────── */
 .proposal-num {
@@ -523,7 +508,7 @@ h2 {
     content: attr(data-step);
     font-family: var(--mono);
     font-size: 0.55rem;
-    color: var(--gray-300);
+    color: var(--pink);
     position: absolute;
     left: 0;
     top: 0.15rem;
