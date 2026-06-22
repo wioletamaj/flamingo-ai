@@ -69,56 +69,67 @@
     <section id="problem">
         <div class="section-label">01 — The Problem</div>
         <h2 tabindex="-1">Our traditional handoffs<br>are lengthy</h2>
-        <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; line-height:1.75;">Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.</p>
+
+        <div class="quote-block" style="margin-top: 2rem; margin-bottom: 2.5rem;">
+            <p class="quote-text">
+                Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.
+            </p>
+        </div>
 
         <div class="bento bento-2 fade-up">
             <!-- Current Workflow -->
             <div class="bento-cell">
                 <span class="col-label">Current workflow</span>
-                <span class="col-sublabel">How we work today</span>
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">How we work today</p>
                 <div class="workflow">
                     <div class="wf-step">
                         <div class="wf-pipe">
-                            <div class="wf-dot"></div>
-                            <div class="wf-line"></div>
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
                         </div>
                         <div class="wf-body">
-                            <p class="wf-text">Designer creates Figma specs</p>
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Creates Figma specs</p>
                         </div>
                     </div>
                     <div class="wf-step">
                         <div class="wf-pipe">
-                            <div class="wf-dot"></div>
-                            <div class="wf-line"></div>
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
                         </div>
                         <div class="wf-body">
-                            <p class="wf-text">Engineers (Web, iOS, Android) build code from scratch</p>
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Build code from scratch</p>
+                            <p class="wf-sub">Web, iOS, Android</p>
                         </div>
                     </div>
                     <div class="wf-step">
                         <div class="wf-pipe">
-                            <div class="wf-dot"></div>
-                            <div class="wf-line"></div>
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
                         </div>
                         <div class="wf-body">
-                            <p class="wf-text">Designer performs manual QA</p>
+                            <span class="wf-tag">Designer</span>
+                            <p class="wf-text bright">Performs manual QA</p>
                         </div>
                     </div>
                     <div class="wf-step">
                         <div class="wf-pipe">
-                            <div class="wf-dot"></div>
-                            <div class="wf-line"></div>
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
                         </div>
                         <div class="wf-body">
-                            <p class="wf-text">Engineers fix bugs &amp; repeat review</p>
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Fix bugs &amp; repeat review</p>
                         </div>
                     </div>
                     <div class="wf-step">
                         <div class="wf-pipe">
-                            <div class="wf-dot"></div>
+                            <div class="wf-dot pink"></div>
                         </div>
                         <div class="wf-body" style="padding-bottom:0;">
-                            <p class="wf-text">Release</p>
+                            <span class="wf-tag">Release</span>
+                            <p class="wf-text bright">Deploy</p>
                         </div>
                     </div>
                 </div>
@@ -127,18 +138,18 @@
             <!-- Pain Points -->
             <div class="bento-cell">
                 <span class="col-label">Key pain points</span>
-                <span class="col-sublabel">Where the process breaks down</span>
+                <p style="color:var(--gray-300); max-width:520px; margin-top:0.5rem; margin-bottom:2rem; line-height:1.75;">Our current design-to-code process creates bottlenecks that slow releases and fragment platform consistency.</p>
                 <div>
                     <div class="pain-item">
-                        <p class="pain-title">Design backlog vs. Engineering capacity</p>
+                        <p class="pain-title"><span style="margin-right: 0.5rem;">⏳</span>Design backlog vs. Engineering capacity</p>
                         <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
                     </div>
                     <div class="pain-item">
-                        <p class="pain-title">The QA Loop</p>
+                        <p class="pain-title"><span style="margin-right: 0.5rem;">🔄</span>The QA Loop</p>
                         <p class="pain-desc">Finding bugs during QA forces back-and-forth review rounds, consuming time on both sides.</p>
                     </div>
                     <div class="pain-item">
-                        <p class="pain-title">Platform Disconnect</p>
+                        <p class="pain-title"><span style="margin-right: 0.5rem;">📱</span>Platform Disconnect</p>
                         <p class="pain-desc">Web, iOS, and Android updates rarely launch together due to varying team capacities.</p>
                     </div>
                 </div>
