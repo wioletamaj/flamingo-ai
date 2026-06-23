@@ -826,10 +826,10 @@ h2 {
 footer {
     position: relative;
     z-index: 1;
-    padding: 4.5rem;
+    padding: 2.5rem;
     text-align: center;
     overflow: hidden;
-    min-height: 500px;
+    min-height: 300px;
 }
 
 #footer-video {
