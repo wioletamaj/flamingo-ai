@@ -829,7 +829,7 @@ footer {
     padding: 2.5rem;
     text-align: center;
     overflow: hidden;
-    min-height: 300px;
+    min-height: 500px;
 }
 
 #footer-video {
@@ -839,6 +839,7 @@ footer {
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    display: block;
 }
 
 footer p {
