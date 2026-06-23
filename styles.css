@@ -67,8 +67,7 @@ body {
 #theme-toggle {
     position: fixed;
     right: 2rem;
-    bottom: 1rem;
-    transform: translateY(-50%);
+    bottom: 2rem;
     z-index: 100;
     width: 24px;
     height: 24px;
