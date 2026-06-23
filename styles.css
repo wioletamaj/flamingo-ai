@@ -409,7 +409,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 0.125rem;
+    padding-top: 0.4rem;
 }
 
 .pain-dot {
@@ -690,6 +690,10 @@ footer p:first-of-type {
 }
 
 /* ─── Responsive ───────────────────────── */
+@media (max-width: 1349px) {
+    main { max-width: 800px; }
+}
+
 @media (max-width: 900px) {
     .bento-2,
     .bento-3,

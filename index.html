@@ -82,7 +82,7 @@
                             <div class="pain-dot"></div>
                         </div>
                         <div class="pain-content">
-                            <p class="pain-title">Design backlog vs. Engineering capacity</p>
+                            <p class="pain-title">Design backlog vs. Engineering Capacity</p>
                             <p class="pain-desc">Designs are ready for months, but engineering bottlenecks delay releases.</p>
                         </div>
                     </div>
@@ -119,6 +119,8 @@
                         <div class="wf-body">
                             <span class="wf-tag">Designer</span>
                             <p class="wf-text bright">Creates Figma specs</p>
+                            <p class="wf-sub">Figma</p>
+
                         </div>
                     </div>
                     <div class="wf-step">
@@ -139,7 +141,9 @@
                         </div>
                         <div class="wf-body">
                             <span class="wf-tag">Designer</span>
-                            <p class="wf-text bright">Performs manual QA</p>
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Perform manual QA</p>
+                            <p class="wf-sub">Web, iOS, Android & gallery Apps</p>
                         </div>
                     </div>
                     <div class="wf-step">
@@ -150,6 +154,7 @@
                         <div class="wf-body">
                             <span class="wf-tag">Engineer</span>
                             <p class="wf-text bright">Fix bugs &amp; repeat review</p>
+                            <p class="wf-sub">Web, iOS, Android</p>
                         </div>
                     </div>
                     <div class="wf-step">
@@ -212,9 +217,19 @@
                             <div class="wf-line pink"></div>
                         </div>
                         <div class="wf-body">
-                            <span class="wf-tag">AI</span>
+                            <span class="wf-tag">HeroGen</span> <span class="wf-tag">Claude Code</span>
                             <p class="wf-text bright">Generates Draft Code</p>
-                            <p class="wf-sub">Storybook · SwiftUI · Compose</p>
+                            <p class="wf-sub">Web, iOS, Android</p>
+                        </div>
+                    </div>
+                    <div class="wf-step">
+                        <div class="wf-pipe">
+                            <div class="wf-dot pink"></div>
+                            <div class="wf-line pink"></div>
+                        </div>
+                        <div class="wf-body" style="padding-bottom:0;">
+                            <span class="wf-tag">Engineer</span>
+                            <p class="wf-text bright">Reviews and approves</p>
                         </div>
                     </div>
                     <div class="wf-step">
@@ -222,8 +237,8 @@
                             <div class="wf-dot pink"></div>
                         </div>
                         <div class="wf-body" style="padding-bottom:0;">
-                            <span class="wf-tag">Engineer</span>
-                            <p class="wf-text bright">Reviews and approves</p>
+                            <span class="wf-tag">Release</span>
+                            <p class="wf-text bright">Deploy</p>
                         </div>
                     </div>
                 </div>
@@ -236,10 +251,13 @@
     ════════════════════════════════════════════════════════════ -->
     <section id="roadmap">
         <div class="section-label">03 — Q3 Roadmap</div>
-        <h2 tabindex="-1">Step-by-step implementation</h2>
+        <h2 tabindex="-1">Q3 2026: Setting the AI foundation</h2>
 
         <p style="margin-top:1.5rem; margin-bottom:2.5rem; color:var(--gray-300); line-height:1.75;">
-            <strong>Strategy:</strong> To ensure success, we will tackle these tasks
+            This quarter, we will focus on building the core AI foundation, which enables
+            us to build later on top of it.
+            As Flamingo is build for Web, Android and iOS, we need to ensure our 
+            vision works for all platforms. Therefore, we will tackle tasks
             <strong>one platform at a time, starting with Web</strong>.
             Building a complete end-to-end flow first lets us learn and iterate before expanding to iOS and Android.
         </p>
@@ -291,7 +309,7 @@
                 <button class="accordion-header">
                     <div>
                         <span class="proposal-num">Task 03</span>
-                        <p class="proposal-title">Claude Code &amp; HeroGen Evaluation</p>
+                        <p class="proposal-title">Claude Code &amp; HeroGen evaluation &amp; guidelines </p>
                     </div>
                     <span class="accordion-icon">+</span>
                 </button>
@@ -318,6 +336,7 @@
                 <div class="accordion-body">
                     <p class="proposal-goal">
                         <strong>The Issue:</strong> Our current Zeroheight plan lacks MCP (Model Context Protocol) support, making agentic AI integration impossible.
+                        Hosting an own documentation space, will allow us to easily maintain our documentation through agents.
                     </p>
                     <ul class="steps-list">
                         <li data-step="Step 01">Extract all current content and component web previews from Zeroheight.</li>
