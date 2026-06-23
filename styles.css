@@ -18,8 +18,25 @@
     --gray-300:     #B7B7B7;
     --gray-500:     #7A7A7A;
     --gray-700:     #2E2E2E;
+    --light-bg:     #fafafa;
     --mono:         'JetBrains Mono', monospace;
     --sans:         'Inter', sans-serif;
+    --display:      'Syne', sans-serif;
+}
+
+:root.light-mode {
+    --bg:           var(--light-bg);
+    --surface:      #F5F5F5;
+    --card:         var(--light-bg);
+    --card-hover:   #F0F0F0;
+    --accordion-hover: #F0F0F0;
+    --border:       #D0D0D0;
+    --pink:         #E91E63;
+    --white:        #0D0D0D;
+    --gray-100:     #1A1A1A;
+    --gray-300:     #4A4A4A;
+    --gray-500:     #808080;
+    --gray-700:     #D8D8D8;
 }
 
 html { scroll-behavior: smooth; }
@@ -46,6 +63,151 @@ body {
 }
 
 
+/* ─── Theme Toggle ────────────────────── */
+#theme-toggle {
+    position: fixed;
+    right: 2rem;
+    bottom: 1rem;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: none;
+    border: 1px solid var(--gray-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    font-size: .8rem;
+}
+
+@keyframes moonOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+@keyframes sunIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sunOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+@keyframes moonIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.toggle-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-icon-moon {
+    display: block;
+}
+
+.toggle-icon-sun {
+    display: block;
+    opacity: 0;
+}
+
+#theme-toggle::before {
+    display: none;
+}
+
+#theme-toggle.light-toggle .toggle-icon-moon {
+    display: block;
+    opacity: 0;
+}
+
+#theme-toggle.light-toggle .toggle-icon-sun {
+    display: block;
+    opacity: 1;
+}
+
+#theme-toggle:hover .toggle-icon-moon {
+    animation: moonOut 0.4s ease forwards;
+}
+
+#theme-toggle:hover .toggle-icon-sun {
+    animation: sunIn 0.4s ease forwards;
+}
+
+#theme-toggle.light-toggle:hover .toggle-icon-moon {
+    animation: moonIn 0.4s ease forwards;
+}
+
+#theme-toggle.light-toggle:hover .toggle-icon-sun {
+    animation: sunOut 0.4s ease forwards;
+}
+
+#theme-toggle:hover {
+    border-color: var(--pink);
+}
+
+#theme-toggle::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: var(--pink);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+    color: var(--gray-100);
+    white-space: nowrap;
+    z-index: 101;
+    font-family: var(--sans);
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+#theme-toggle:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#theme-toggle:focus {
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 10px rgba(255, 26, 108, 0.3);
+}
+
 /* ─── Logo ────────────────────────────── */
 #logo {
     position: fixed;
@@ -68,6 +230,10 @@ body {
 
 #logo.scrolled #logo-text {
     opacity: 0;
+}
+
+:root.light-mode #logo {
+    filter: invert(1) hue-rotate(180deg);
 }
 
 /* ─── Side Navigation ─────────────────── */
@@ -178,7 +344,8 @@ section {
 }
 
 h1 {
-    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+    font-family: var(--display);
+    font-size: clamp(2.75rem, 8.5vw, 5.5rem);
     font-weight: 800;
     line-height: 1.03;
     letter-spacing: -0.035em;
@@ -186,6 +353,7 @@ h1 {
 }
 
 h2 {
+    font-family: var(--display);
     font-size: clamp(1.75rem, 3.5vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.025em;
@@ -560,7 +728,7 @@ h2 {
 }
 
 .accordion-header:hover {
-    background: var(--card-hover);
+    background: var(--accordion-hover);
 }
 
 .accordion-header > div {
@@ -576,7 +744,11 @@ h2 {
     font-weight: 300;
     line-height: 1;
     flex-shrink: 0;
-    transition: transform 0.25s ease;
+    transition: transform 0.3s ease;
+}
+
+.accordion-header:hover .accordion-icon {
+    transform: rotate(90deg) scale(1.2);
 }
 
 .accordion-item.active .accordion-icon {
@@ -654,18 +826,17 @@ h2 {
 footer {
     position: relative;
     z-index: 1;
-    border-top: 1px solid var(--border);
     padding: 2.5rem;
     text-align: center;
 }
 
-#bg-vanta-footer {
+#footer-video {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
     z-index: 0;
-    pointer-events: none;
 }
 
 footer p {
@@ -673,6 +844,15 @@ footer p {
     font-size: 0.6rem;
     color: var(--white);
     letter-spacing: 0.12em;
+}
+
+:root.light-mode footer p {
+    color: #EBEBEB;
+}
+
+:root.light-mode footer a {
+    color: #EBEBEB !important;
+    border-bottom-color: #EBEBEB !important;
 }
 
 footer p:first-of-type {
