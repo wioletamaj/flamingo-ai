@@ -757,7 +757,8 @@ h2 {
 .accordion-body {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    padding: 0 2rem 0 2rem;
+    transition: max-height 0.3s ease, padding 0.3s ease;
     background: var(--card);
 }
 
