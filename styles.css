@@ -763,7 +763,7 @@ h2 {
 }
 
 .accordion-header:hover .accordion-icon {
-    transform: rotate(90deg) scale(1.2);
+    transform: rotate(-90deg) scale(2);
 }
 
 .accordion-item.active .accordion-icon {
@@ -775,7 +775,7 @@ h2 {
     overflow: hidden;
     padding: 0 2rem 0 2rem;
     transition: max-height 0.3s ease, padding 0.3s ease;
-    background: var(--card);
+    background: transparent;
 }
 
 .accordion-item.active .accordion-body {
@@ -871,6 +871,23 @@ h2 {
 
 .skip-link:focus {
     top: 0;
+}
+
+/* ─── Proposal Diagram ────────────────── */
+#proposal-diagram {
+    min-height: auto;
+    padding: 1rem 0rem;
+    margin-bottom: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#proposal-diagram svg {
+    width: 100%;
+    height: auto;
+    max-width: 1200px;
+    display: block;
 }
 
 /* ─── Footer ───────────────────────────── */
