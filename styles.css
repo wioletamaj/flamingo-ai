@@ -8,9 +8,9 @@
     --bg:           linear-gradient(90deg, #0B1020 0%, #0F172A 100%);
     --surface:      #111111;
     --card:         #141414;
-    --card-hover:   #191919;
+    --card-hover:   #14203b;
     --border:       #666666;
-    --pink:         #FF1A6C;
+    --pink:         #FF0061;
     --pink-dim:     rgba(255, 26, 108, 0.15);
     --pink-glow:    rgba(255, 26, 108, 0.30);
     --white:        #FFFFFF;
@@ -31,7 +31,7 @@
     --card-hover:   #F0F0F0;
     --accordion-hover: #F0F0F0;
     --border:       #D0D0D0;
-    --pink:         #E91E63;
+    --pink:         #FF0061;
     --white:        #0D0D0D;
     --gray-100:     #1A1A1A;
     --gray-300:     #4A4A4A;
@@ -355,7 +355,7 @@ h1 {
 h2 {
     font-family: var(--display);
     font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.025em;
     margin-bottom: 0.75rem;
     line-height: 1.2;
@@ -490,7 +490,21 @@ h2 {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
 }
+
+.workflow.visible .wf-step {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.workflow.visible .wf-step:nth-child(1) { transition-delay: 0.1s; }
+.workflow.visible .wf-step:nth-child(2) { transition-delay: 0.2s; }
+.workflow.visible .wf-step:nth-child(3) { transition-delay: 0.3s; }
+.workflow.visible .wf-step:nth-child(4) { transition-delay: 0.4s; }
+.workflow.visible .wf-step:nth-child(5) { transition-delay: 0.5s; }
 
 .wf-pipe {
     display: flex;
@@ -833,6 +847,7 @@ h2 {
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.55s ease, transform 0.55s ease;
+    transition-delay: var(--delay, 0s);
 }
 
 .fade-up.visible {

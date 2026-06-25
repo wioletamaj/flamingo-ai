@@ -533,6 +533,22 @@ window.vantaInstances.hero = VANTA.FOG({
 })();
 
 // ─────────────────────────────────────────────────────────────────
+// Workflow staggered fade-in
+// ─────────────────────────────────────────────────────────────────
+(function () {
+    const workflows = document.querySelectorAll('.workflow');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    workflows.forEach(w => io.observe(w));
+})();
+
+// ─────────────────────────────────────────────────────────────────
 // Theme toggle
 // ─────────────────────────────────────────────────────────────────
 (function () {
@@ -561,7 +577,7 @@ window.vantaInstances.hero = VANTA.FOG({
                     highlightColor: 0xfff3f5,
                     midtoneColor: 0xffaac4,
                     lowlightColor: 0x93c5ff,
-                    baseColor: 0xf2f1f1
+                    baseColor: 0xffffff 
                 });
             }
         } else {
@@ -572,7 +588,7 @@ window.vantaInstances.hero = VANTA.FOG({
                     highlightColor: 0x780018,
                     midtoneColor: 0x695736,
                     lowlightColor: 0xa42457,
-                    baseColor: 0x46001c
+                    baseColor: 0x101A30
                 });
             }
         }
